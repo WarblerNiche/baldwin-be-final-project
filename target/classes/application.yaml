@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: game_collection
+    password: game_collection
+    url: jdbc:mysql://localhost:3306/game_collection
+    
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    
+  sql:
+    init:
+      mode: never
+      
