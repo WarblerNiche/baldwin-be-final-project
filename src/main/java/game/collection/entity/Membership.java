@@ -18,7 +18,6 @@ public class Membership {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   
   private Long membershipId;
-  
   @EqualsAndHashCode.Exclude
   private String membershipType;
   @EqualsAndHashCode.Exclude

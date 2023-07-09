@@ -1,5 +1,7 @@
 drop table if exists game_collection;
+drop table if exists player_game;
 drop table if exists game;
+drop table if exists player_memberships;
 drop table if exists membership;
 drop table if exists player;
 

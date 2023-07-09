@@ -1,5 +1,7 @@
 package game.collection.service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,26 @@ public class CollectionService {
 
   private Player findPlayerById(Long playerId) {
     return playerDao.findById(playerId).orElseThrow(() -> new NoSuchElementException("Player with ID=" + playerId + "was not found."));
+  }
+  
+  @Transactional(readOnly = true)
+  public List<PlayerData> retrieveAllPlayers() {
+    List<Player> playerEntities = playerDao.findAll();
+    List<PlayerData> playerDtos = new LinkedList<>();
+    
+    for(Player player : playerEntities) {
+      PlayerData playerData = new PlayerData(player);
+      playerDtos.add(playerData);
+    }
+
+    return playerDtos;
+  }
+
+  @Transactional(readOnly = false)
+  public void deletePlayer(Long playerId) {
+    Player player = findPlayerById(playerId);
+    playerDao.delete(player);
+    
   }
 
 }

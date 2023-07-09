@@ -1,10 +1,14 @@
 package game.collection.controller;
 
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -27,9 +31,31 @@ public class CollectionController {
     return collectionService.savePlayer(playerData);
   }
   
+  @PutMapping("/player/{playerId}")
+  public PlayerData updatePlayer(@PathVariable Long playerId, @RequestBody PlayerData playerData) {
+    playerData.setPlayerId(playerId);
+
+    log.info("Updating player {}", playerData);
+    return collectionService.savePlayer(playerData);
+  }
+  
   @GetMapping("/player/{playerId}")
   public PlayerData retrievePlayer(@PathVariable Long playerId) {
     log.info("Retrieving player with ID={}", playerId);
     return collectionService.retrievePlayerById(playerId);
+  }
+  
+  @GetMapping("/player")
+  public List<PlayerData> retrieveAllPlayers() {
+    log.info("Retrieving all locations");
+    return collectionService.retrieveAllPlayers();
+  }
+  
+  @DeleteMapping("/player/{playerId}")
+  public Map<String, String> deletePlayer(@PathVariable Long playerId) {
+    log.info("Deleting player with ID=" + playerId + ".");
+    collectionService.deletePlayer(playerId);
+    
+    return Map.of("message", "Player with ID=" + playerId + " was deleted successfully.");
   }
 }
