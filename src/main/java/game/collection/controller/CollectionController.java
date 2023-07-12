@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import game.collection.controller.model.PlayerData;
+import game.collection.controller.model.PlayerData.GameData;
+import game.collection.controller.model.PlayerData.MembershipData;
+import game.collection.entity.Game;
 import game.collection.service.CollectionService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,12 +34,34 @@ public class CollectionController {
     return collectionService.savePlayer(playerData);
   }
   
+  @PostMapping("/player/{playerId}/memberships")
+  @ResponseStatus(code = HttpStatus.CREATED)
+  public PlayerData insertMembership(@PathVariable Long playerId, @RequestBody MembershipData membershipData) {
+    log.info("Creating {} membership for player ID={}", membershipData, playerId);
+    return collectionService.saveMembership(playerId, membershipData);
+  }
+  
+  @PostMapping("/player/{playerId}/game/{gameId}")
+  @ResponseStatus(code = HttpStatus.CREATED)
+  public PlayerData addPlayerGame(@PathVariable Long playerId, @PathVariable Long gameId) {
+    log.info("Adding game ID={} to collection of player ID={}", gameId, playerId);
+    return collectionService.addNewGameToPlayer(playerId, gameId);
+  }
+  
   @PutMapping("/player/{playerId}")
   public PlayerData updatePlayer(@PathVariable Long playerId, @RequestBody PlayerData playerData) {
     playerData.setPlayerId(playerId);
 
     log.info("Updating player {}", playerData);
     return collectionService.savePlayer(playerData);
+  }
+  
+  @PutMapping("/player/{playerId}/membership/{membershipId}")
+  public PlayerData updateMembership(@PathVariable Long playerId, @PathVariable Long membershipId, @RequestBody MembershipData membershipData) {
+    membershipData.setMembershipId(membershipId);
+    log.info("Updating {} membership info for player ID={}", membershipData, playerId);
+    
+    return collectionService.saveMembership(playerId, membershipData);
   }
   
   @GetMapping("/player/{playerId}")
