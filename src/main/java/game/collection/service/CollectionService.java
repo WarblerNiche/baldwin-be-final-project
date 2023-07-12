@@ -8,8 +8,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import game.collection.controller.model.MembershipData;
 import game.collection.controller.model.PlayerData;
-import game.collection.controller.model.PlayerData.MembershipData;
 import game.collection.dao.GameDao;
 import game.collection.dao.PlayerDao;
 import game.collection.entity.Game;
@@ -21,6 +21,7 @@ public class CollectionService {
   
   @Autowired
   private PlayerDao playerDao;
+  @Autowired
   private GameDao gameDao;
 
   @Transactional(readOnly = false)
@@ -34,6 +35,10 @@ public class CollectionService {
   public PlayerData retrievePlayerById(Long playerId) {
     Player player = findPlayerById(playerId);
     return new PlayerData(player);
+  }
+  
+  private Game findGameById(Long gameId) {
+    return gameDao.findById(gameId).orElseThrow(() -> new NoSuchElementException("Game with ID=" + gameId + "was not found."));
   }
 
   private Player findPlayerById(Long playerId) {
@@ -83,8 +88,6 @@ public class CollectionService {
     return new PlayerData(dbPlayer);
   }
 
-  private Game findGameById(Long gameId) {
-    return gameDao.findById(gameId).orElseThrow(() -> new NoSuchElementException("Game with ID=" + gameId + "was not found."));
-  }
+
 
 }

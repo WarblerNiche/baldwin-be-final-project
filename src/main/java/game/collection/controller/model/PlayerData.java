@@ -39,8 +39,6 @@ public class PlayerData {
     this.name = name;
     this.email = email;
     this.phone = phone;
-    
-    
   }
   
   public Player toPlayer() {
@@ -60,82 +58,5 @@ public class PlayerData {
     }
     
     return player;
-  }
-  
-  @Data
-  @NoArgsConstructor
-  public class MembershipData {
-    private Long membershipId;
-    private String membershipType;
-    private String membershipRenewalFreq;
-    private Date startDate;
-    private boolean isActive;
-    
-    public MembershipData(Membership membership) {
-      this.membershipId = membership.getMembershipId();
-      this.membershipType = membership.getMembershipType();
-      this.membershipRenewalFreq = membership.getMembershipRenewalFreq();
-      this.startDate = membership.getStartDate();
-      this.isActive = membership.isActive();
-    }
-    
-    public MembershipData(String membershipType, String membershipRenewalFreq, Date startDate, boolean isActive) {
-//      this.membershipId = membershipId;
-      this.membershipType = membershipType;
-      this.membershipRenewalFreq = membershipRenewalFreq;
-      this.startDate = startDate;
-      this.isActive = isActive;
-    }
-    
-    public Membership toMembership() {
-      Membership membership = new Membership();
-      
-      membership.setMembershipId(membershipId);
-      membership.setMembershipType(membershipType);
-      membership.setMembershipRenewalFreq(membershipRenewalFreq);
-      membership.setStartDate(startDate);
-      membership.setActive(isActive);
-      
-      return membership;
-    }
-  }
-  
-  @Data
-  @NoArgsConstructor
-  public class GameData {
-    private Long gameId;
-    private String title;
-    private String genre;
-    private String platform;
-    private String esrbRating;
-    
-    private Set<PlayerData> players = new HashSet<>();
-    
-    public GameData(Game game) {
-      this.gameId = game.getGameId();
-      this.title = game.getTitle();
-      this.genre = game.getGenre();
-      this.platform = game.getPlatform();
-      this.esrbRating = game.getEsrbRating();
-      
-      for(Player player : game.getPlayers()) {
-        this.getPlayers().add(new PlayerData(player));
-      }
-    }
-    
-    public Game toGame() {
-      Game game = new Game();
-      game.setGameId(gameId);
-      game.setTitle(title);
-      game.setGenre(genre);
-      game.setPlatform(platform);
-      game.setEsrbRating(esrbRating);
-      
-      for(PlayerData playerData : players) {
-        game.getPlayers().add(playerData.toPlayer());
-      }
-      
-      return game;
-    }
   }
 }

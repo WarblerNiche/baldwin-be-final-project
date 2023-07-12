@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import game.collection.controller.model.MembershipData;
 import game.collection.controller.model.PlayerData;
-import game.collection.controller.model.PlayerData.GameData;
-import game.collection.controller.model.PlayerData.MembershipData;
-import game.collection.entity.Game;
 import game.collection.service.CollectionService;
 import lombok.extern.slf4j.Slf4j;
 
