@@ -16,19 +16,13 @@ import lombok.ToString;
 public class Membership {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  
   private Long membershipId;
-  @EqualsAndHashCode.Exclude
+  
   private String membershipType;
-  @EqualsAndHashCode.Exclude
   private String membershipRenewalFreq;
-  @EqualsAndHashCode.Exclude
   private Date startDate;
-  @EqualsAndHashCode.Exclude
   private boolean isActive;
   
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
   @ManyToOne
   @JoinColumn(name = "player_id", nullable = false)
   private Player player;

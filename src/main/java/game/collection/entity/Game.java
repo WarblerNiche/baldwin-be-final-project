@@ -18,8 +18,8 @@ import lombok.ToString;
 public class Game {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  
   private Long gameId;
+  
   private String title;
   private String genre;
   private String platform;

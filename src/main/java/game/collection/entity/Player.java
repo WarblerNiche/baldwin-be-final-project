@@ -12,22 +12,29 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
 public class Player {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  
   private Long playerId;
   
+  @EqualsAndHashCode.Exclude
   private String name;
+  @EqualsAndHashCode.Exclude
   private String email;
+  @EqualsAndHashCode.Exclude
   private String phone;
   
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @EqualsAndHashCode.Exclude
+  @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<Membership> memberships = new HashSet<>();
   
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   @ManyToMany(cascade = CascadeType.PERSIST)
   @JoinTable(
       name = "player_game",

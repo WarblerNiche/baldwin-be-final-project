@@ -25,9 +25,9 @@ public class GameData {
     this.platform = game.getPlatform();
     this.esrbRating = game.getEsrbRating();
     
-    for(Player player : game.getPlayers()) {
-      this.getPlayers().add(new PlayerData(player));
-    }
+//    for(Player player : game.getPlayers()) {
+//      this.getPlayers().add(new PlayerData(player));
+//    }
   }
   
   public Game toGame() {

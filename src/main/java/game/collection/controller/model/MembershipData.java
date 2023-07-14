@@ -22,8 +22,8 @@ public class MembershipData {
     this.isActive = membership.isActive();
   }
   
-  public MembershipData(String membershipType, String membershipRenewalFreq, Date startDate, boolean isActive) {
-//    this.membershipId = membershipId;
+  public MembershipData(Long membershipId, String membershipType, String membershipRenewalFreq, Date startDate, boolean isActive) {
+    this.membershipId = membershipId;
     this.membershipType = membershipType;
     this.membershipRenewalFreq = membershipRenewalFreq;
     this.startDate = startDate;

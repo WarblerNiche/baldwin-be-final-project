@@ -1,6 +1,5 @@
 package game.collection.controller.model;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import game.collection.entity.Game;
@@ -34,12 +33,12 @@ public class PlayerData {
     }
   }
   
-  public PlayerData (Long playerId, String name, String email, String phone) {
-    this.playerId = playerId;
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
-  }
+//  public PlayerData (Long playerId, String name, String email, String phone) {
+//    this.playerId = playerId;
+//    this.name = name;
+//    this.email = email;
+//    this.phone = phone;
+//  }
   
   public Player toPlayer() {
     Player player = new Player();

@@ -33,7 +33,7 @@ create table game(
 	primary key (game_id)
 );
 
-create table game_collection(
+create table player_game(
 	player_id int not null,
 	game_id int not null,
 	foreign key (player_id) references player (player_id) on delete cascade,
