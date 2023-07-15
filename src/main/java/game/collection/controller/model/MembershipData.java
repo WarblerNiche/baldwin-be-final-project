@@ -2,6 +2,7 @@ package game.collection.controller.model;
 
 import java.util.Date;
 import game.collection.entity.Membership;
+import game.collection.entity.Player;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ public class MembershipData {
   private String membershipRenewalFreq;
   private Date startDate;
   private boolean isActive;
+  private Player player;
   
   public MembershipData(Membership membership) {
     this.membershipId = membership.getMembershipId();
@@ -20,14 +22,16 @@ public class MembershipData {
     this.membershipRenewalFreq = membership.getMembershipRenewalFreq();
     this.startDate = membership.getStartDate();
     this.isActive = membership.isActive();
+    this.player = membership.getPlayer();
   }
   
-  public MembershipData(Long membershipId, String membershipType, String membershipRenewalFreq, Date startDate, boolean isActive) {
+  public MembershipData(Long membershipId, String membershipType, String membershipRenewalFreq, Date startDate, boolean isActive, Player player) {
     this.membershipId = membershipId;
     this.membershipType = membershipType;
     this.membershipRenewalFreq = membershipRenewalFreq;
     this.startDate = startDate;
     this.isActive = isActive;
+    this.player = player;
   }
   
   public Membership toMembership() {
@@ -38,6 +42,7 @@ public class MembershipData {
     membership.setMembershipRenewalFreq(membershipRenewalFreq);
     membership.setStartDate(startDate);
     membership.setActive(isActive);
+    membership.setPlayer(player);
     
     return membership;
   }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import game.collection.controller.model.MembershipData;
 import game.collection.controller.model.PlayerData;
 import game.collection.dao.GameDao;
+import game.collection.dao.MembershipDao;
 import game.collection.dao.PlayerDao;
 import game.collection.entity.Game;
 import game.collection.entity.Membership;
@@ -23,6 +24,8 @@ public class CollectionService {
   private PlayerDao playerDao;
   @Autowired
   private GameDao gameDao;
+  @Autowired
+  private MembershipDao membershipDao;
 
   @Transactional(readOnly = false)
   public PlayerData savePlayer(PlayerData playerData) {
@@ -69,9 +72,12 @@ public class CollectionService {
   public PlayerData saveMembership(Long playerId, MembershipData membershipData) {
     Player player = findPlayerById(playerId);
     Membership membership = membershipData.toMembership();
-    Set<Membership> memberships = new HashSet<>();
-    memberships.add(membership);
-    player.setMemberships(memberships);
+    membership.setPlayer(player);
+    Membership savedMembership = membershipDao.save(membership);
+//    Set<Membership> memberships = new HashSet<>();
+    player.getMemberships().add(savedMembership);
+//    memberships.add(savedMembership);
+//    player.setMemberships(memberships);
     Player dbPlayer = playerDao.save(player);
     return new PlayerData(dbPlayer);
   }
