@@ -2,6 +2,7 @@ package game.collection.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +29,7 @@ public class Game {
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   @ManyToMany(mappedBy = "gameCollection")
+  @JsonIgnore
   private Set<Player> players = new HashSet<>();
 
 }
