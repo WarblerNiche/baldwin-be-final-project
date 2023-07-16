@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import game.collection.controller.model.GameData;
 import game.collection.controller.model.MembershipData;
 import game.collection.controller.model.PlayerData;
 import game.collection.service.CollectionService;
@@ -44,6 +45,13 @@ public class CollectionController {
   public PlayerData addPlayerGame(@PathVariable Long playerId, @PathVariable Long gameId) {
     log.info("Adding game ID={} to collection of player ID={}", gameId, playerId);
     return collectionService.addNewGameToPlayer(playerId, gameId);
+  }
+  
+  @PostMapping("/player/{playerId}/gameCollection")
+  @ResponseStatus(code = HttpStatus.CREATED)
+  public PlayerData addNewGame(@PathVariable Long playerId, @RequestBody GameData gameData) {
+    log.info("Adding new game to player ID={}", playerId);
+    return collectionService.addNewGame(playerId, gameData);
   }
   
   @PutMapping("/player/{playerId}")
